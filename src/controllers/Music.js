@@ -25,6 +25,7 @@ const handleAddMusic = async (req, res) => {
 		const textMsg = `
 			${req.body.name} хочет связаться с вами \n
 			email: ${req.body.email}
+			параметры сообщения: ${req.body.param}
 			сообщение: ${req.body.message}
 		`;
 

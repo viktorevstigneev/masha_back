@@ -11,6 +11,12 @@ const PeopleSchema = new Schema({
 	description: {
 		type: String,
 	},
+	roomType: {
+		type: String,
+	},
+	styleType: {
+		type: String,
+	},
 });
 
 const People = model('People', PeopleSchema);

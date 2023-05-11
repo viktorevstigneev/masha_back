@@ -1,6 +1,6 @@
 const { HttpStatusCode } = require('../constants');
 const { People, createTeam, getTeamData, deleteTeam, updateTeam, getPersonData } = require('../models/People');
-const {User} = require("../models/User");
+const { User } = require('../models/User');
 const nodemailer = require('nodemailer');
 
 const handleOrderTeam = async (req, res) => {
@@ -14,12 +14,10 @@ const handleOrderTeam = async (req, res) => {
 				pass: 'rX8Q2LzNKP2LjE1eiepX',
 			},
 		});
-	
 
 		const tttt = req.body.gotedData.map((item) => {
 			return `${item.name}  ${item.price} BYN`;
 		});
-
 
 		const textMsg = `
 			${req.body.user} хочет сделать заказ \n
@@ -33,7 +31,7 @@ const handleOrderTeam = async (req, res) => {
 			text: textMsg,
 		});
 
-		await User.updateOne({ _id: req.body.userID }, {userCart: null});
+		await User.updateOne({ _id: req.body.userID }, { userCart: null });
 		res.status(HttpStatusCode.OK).send(result);
 	} catch (error) {
 		res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).send({ error });
@@ -83,11 +81,23 @@ const handleDeleteTeam = async (req, res) => {
 
 const handleUpdateTeam = async (req, res) => {
 	try {
-		const result = await updateTeam(req.params.id, {
-			name: req.body.name,
-			description: req.body.description,
-			avatar: req.body.avatar,
-		});
+		let result;
+		if (req.body.avatar) {
+			result = await updateTeam(req.params.id, {
+				name: req.body.name,
+				description: req.body.description,
+				avatar: req.body.avatar,
+				roomType: req.body.roomType,
+				styleType: req.body.styleType,
+			});
+		} else {
+			result = await updateTeam(req.params.id, {
+				name: req.body.name,
+				description: req.body.description,
+				roomType: req.body.roomType,
+				styleType: req.body.styleType,
+			});
+		}
 
 		res.status(HttpStatusCode.OK).send(result);
 	} catch (error) {
@@ -105,7 +115,6 @@ const handleUploadPhoto = async (req, res) => {
 		res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).send({ error });
 	}
 };
-
 
 module.exports = {
 	handleAddTeam,
