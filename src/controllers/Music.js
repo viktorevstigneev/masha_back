@@ -7,7 +7,7 @@ const nodemailer = require('nodemailer');
 // //  {
 // 				user: 'menyu.servis@mail.ru',
 // 				
-				// pass2: nMbKrDHkPydhCdfti9cx
+				// pass2: ceu27dgfbChdNzrAmbF5
 // 			},
 
 const handleAddMusic = async (req, res) => {
@@ -18,7 +18,7 @@ const handleAddMusic = async (req, res) => {
 			secure: false,
 			auth: {
 				user: 'mashayanushko130@mail.ru',
-				pass: 'nMbKrDHkPydhCdfti9cx',
+				pass: 'ceu27dgfbChdNzrAmbF5',
 			},
 		});
 
@@ -37,6 +37,7 @@ const handleAddMusic = async (req, res) => {
 		});
 		res.status(HttpStatusCode.OK).send(result);
 	} catch (error) {
+		console.log('error: ', error);
 		res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).send({ error });
 	}
 };
